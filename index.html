@@ -2712,7 +2712,9 @@ async function submitAsk() {
         session_id: window._nymSessionId || null,
         restored_graph_events: window._restoredGraphEvents || [],
         prev_H_cumulative: window._restoredHCumulative || null,
-        epistemic_state: window._restoredEpistemicState || null
+        epistemic_state: window._restoredEpistemicState || null,
+        entity_state: window._restoredEntityState || null,
+        context: window._restoredContext || []
       })
     });
     const nmData = await nmRes.json();
@@ -3291,9 +3293,15 @@ window.continueFromSeal = async function(sealId) {
     if (data.restored_graph_events && data.restored_graph_events.length > 0) {
       window._restoredGraphEvents = data.restored_graph_events;
     }
+    if (data.context && Array.isArray(data.context)) {
+      window._restoredContext = data.context;
+    }
     if (data.epistemic_state) {
       window._restoredEpistemicState = data.epistemic_state;
       window._restoredHCumulative = data.H_cumulative || null;
+    }
+    if (data.entity_state) {
+      window._restoredEntityState = data.entity_state;
     }
     window.history.replaceState({}, '', '/');
     const banner = document.createElement('div');
