@@ -2714,7 +2714,8 @@ async function submitAsk() {
         prev_H_cumulative: window._restoredHCumulative || null,
         epistemic_state: window._restoredEpistemicState || null,
         entity_state: window._restoredEntityState || null,
-        context: window._restoredContext || []
+        context: window._restoredContext || [],
+        forensic_decisions: window._restoredForensicDecisions || null
       })
     });
     const nmData = await nmRes.json();
@@ -3295,6 +3296,7 @@ window.continueFromSeal = async function(sealId) {
     }
     if (data.context && Array.isArray(data.context)) {
       window._restoredContext = data.context;
+      window._restoredForensicDecisions = data.forensic_decisions || null;
     }
     if (data.epistemic_state) {
       window._restoredEpistemicState = data.epistemic_state;
